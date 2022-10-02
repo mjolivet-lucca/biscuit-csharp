@@ -4,13 +4,19 @@ namespace Biscuit.Parse.Language;
 
 public class Comment : IBlockElement
 {
-    private Regex validCharacters = new ("^[a-zA-Z0-9_: \t()$\\[\\]]+$");
+    private readonly Regex _validCharacters = new ("^[a-zA-Z0-9_: \t()$\\[\\]]+$");
     public string InputString { get; }
 
     public Comment(string inputString)
     {
         InputString = inputString;
+        Element = ParseInput();
     }
+
+    private CommentText ParseInput()
+        => !IsValid()
+            ? new CommentText("")
+            : new CommentText(InputString[3..].Trim());
 
 
     public bool IsValid()
@@ -19,6 +25,8 @@ public class Comment : IBlockElement
                && InputString.StartsWith("//")
                && InputString.EndsWith('\n')
                && char.IsLetter(InputString[2])
-               && validCharacters.Match(InputString[3..].Trim()).Success;
+               && _validCharacters.Match(InputString[3..].Trim()).Success;
     }
+
+    public ILogicalElement Element { get; }
 }

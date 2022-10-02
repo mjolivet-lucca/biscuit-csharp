@@ -2,8 +2,17 @@
 
 public class BlockElement : IBlockElement
 {
+    public string InputString { get; }
+    public ILogicalElement Element { get; }
+
+    public BlockElement(string inputString)
+    {
+        InputString = inputString;
+    }
+
     public bool IsValid()
     {
-        return false;
+        return InputString.Trim().EndsWith(";");
     }
+
 }

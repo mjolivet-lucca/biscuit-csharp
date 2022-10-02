@@ -2,11 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biscuit.Parse", "src\Biscuit.Parse\Biscuit.Parse.csproj", "{9A6A6473-0E29-4C21-B65A-36B748304410}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biscuit.Auth", "Biscuit.Auth\Biscuit.Auth.csproj", "{D4C284FC-DC01-4628-ABD2-13601278573C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biscuit.Auth.Test", "test\Biscuit.Auth.Test\Biscuit.Auth.Test.csproj", "{9DDF305C-EBA5-40B0-A2CA-6A34A825E806}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biscuit.Parse.Test", "test\Biscuit.Parse.Test\Biscuit.Parse.Test.csproj", "{0C8753E2-0ECE-4972-83DA-043EE78DC7C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biscuit.Auth", "src\Biscuit.Auth\Biscuit.Auth.csproj", "{4A695468-67D3-40A3-BA98-40106DB6518B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,10 +18,6 @@ Global
 		{9A6A6473-0E29-4C21-B65A-36B748304410}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A6A6473-0E29-4C21-B65A-36B748304410}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A6A6473-0E29-4C21-B65A-36B748304410}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D4C284FC-DC01-4628-ABD2-13601278573C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4C284FC-DC01-4628-ABD2-13601278573C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4C284FC-DC01-4628-ABD2-13601278573C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4C284FC-DC01-4628-ABD2-13601278573C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DDF305C-EBA5-40B0-A2CA-6A34A825E806}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9DDF305C-EBA5-40B0-A2CA-6A34A825E806}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DDF305C-EBA5-40B0-A2CA-6A34A825E806}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -30,5 +26,9 @@ Global
 		{0C8753E2-0ECE-4972-83DA-043EE78DC7C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C8753E2-0ECE-4972-83DA-043EE78DC7C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C8753E2-0ECE-4972-83DA-043EE78DC7C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A695468-67D3-40A3-BA98-40106DB6518B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A695468-67D3-40A3-BA98-40106DB6518B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A695468-67D3-40A3-BA98-40106DB6518B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A695468-67D3-40A3-BA98-40106DB6518B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,6 +1,6 @@
 ﻿namespace Biscuit.Parse.Language;
 
-public interface IBlockElement
+public interface IBlockElement : IValidateable
 {
-    bool IsValid();
+    ILogicalElement Element { get; }
 }
