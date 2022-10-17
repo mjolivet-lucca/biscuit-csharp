@@ -1,15 +1,15 @@
 ﻿namespace Biscuit.Parse.Language;
 
-public class Fact : ILogicalElement
+public class Variable : ITerm
 {
     public string InputString { get; }
 
-    public Fact(string inputString)
+    public Variable(string inputString)
     {
         InputString = inputString;
     }
     public bool IsValid()
     {
-        return true;
+        throw new NotImplementedException();
     }
 }

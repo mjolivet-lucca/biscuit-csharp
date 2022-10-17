@@ -3,13 +3,16 @@
 public class Rule : ILogicalElement
 {
     public string InputString { get; }
+    public LogicalPredicate Predicate { get; }
+    public RuleBody RuleBody { get; }
 
     public Rule(string inputString)
     {
         InputString = inputString;
+
     }
     public bool IsValid()
     {
-        throw new NotImplementedException();
+        return InputString.Contains("<-") && Predicate.IsValid() && RuleBody.IsValid();
     }
 }

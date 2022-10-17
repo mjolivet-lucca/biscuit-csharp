@@ -8,11 +8,12 @@ public class BlockElement : IBlockElement
     public BlockElement(string inputString)
     {
         InputString = inputString;
+        Element = new LogicalElementFactory().PopulateElement(inputString);
     }
 
     public bool IsValid()
     {
-        return InputString.Trim().EndsWith(";");
+        return InputString.Trim().EndsWith(";") && Element.IsValid();
     }
 
 }
