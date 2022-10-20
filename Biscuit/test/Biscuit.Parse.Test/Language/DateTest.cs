@@ -13,23 +13,22 @@ public class DateTest
     [InlineData(" ")]
     public void DateShouldBeInvalidWhenNullOrEmpty(string inputData)
     {
-        var date = new Date(inputData);
-
-        var isValid = date.IsValid();
+        var isValid = Date.CanParse(inputData);
 
         Assert.False(isValid);
-        Assert.Equal(DateTime.MinValue, date.Value);
+
+        Assert.Throws<InvalidOperationException>(() => new Date(inputData));
     }
 
     [Fact]
     public void NonDateFormatShouldBeInvalid()
     {
-        var date = new Date("aze23");
-
-        var isValid = date.IsValid();
+        const string exampleDate = "aze23";
+        var isValid = Date.CanParse(exampleDate);
 
         Assert.False(isValid);
-        Assert.Equal(DateTime.MinValue, date.Value);
+
+        Assert.Throws<InvalidOperationException>(() => new Date(exampleDate));
     }
 
     [Theory]
@@ -38,12 +37,11 @@ public class DateTest
     [InlineData("17/05/1982")]
     public void NonIso8601DateShouldNotBeValid(string exampleDate)
     {
-        var date = new Date(exampleDate);
-
-        var isValid = date.IsValid();
+        var isValid = Date.CanParse(exampleDate);
 
         Assert.False(isValid);
-        Assert.Equal(DateTime.MinValue, date.Value);
+
+        Assert.Throws<InvalidOperationException>(() => new Date(exampleDate));
     }
 
     [Theory]
@@ -56,10 +54,9 @@ public class DateTest
     [InlineData("2022-12-03T11:37:28-05:00")]
     public void Iso8601DateShouldBeValidWith3Formats(string exampleDate)
     {
+        var isValid = Date.CanParse(exampleDate);
         var date = new Date(exampleDate);
 
-        var isValid = date.IsValid();
-        
         Assert.True(isValid);
         Assert.NotEqual(DateTime.MinValue, date.Value);
     }

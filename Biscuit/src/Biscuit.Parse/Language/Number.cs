@@ -1,6 +1,6 @@
 ﻿namespace Biscuit.Parse.Language;
 
-public class Number : IPrimordialData
+public class Number : IFactTermValue, ISetTermValue
 {
     public string InputString { get; }
     public int Value { get; }
@@ -8,10 +8,12 @@ public class Number : IPrimordialData
     public Number(string inputString)
     {
         InputString = inputString;
-        Value = IsValid() ? int.Parse(InputString) : 0;
+        if (!CanParse(InputString))
+        {
+            throw new InvalidOperationException($"{nameof(Date)} -> {inputString}");
+        }
+        Value = int.Parse(InputString);
     }
-    public bool IsValid()
-    {
-        return !string.IsNullOrWhiteSpace(InputString) && int.TryParse(InputString, out _);
-    }
+    public static bool CanParse(string value)
+        => !string.IsNullOrWhiteSpace(value) && int.TryParse(value, out _);
 }

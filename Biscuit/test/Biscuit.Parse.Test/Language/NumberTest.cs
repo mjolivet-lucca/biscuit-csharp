@@ -1,4 +1,5 @@
-﻿using Biscuit.Parse.Language;
+﻿using System;
+using Biscuit.Parse.Language;
 using Xunit;
 
 namespace Biscuit.Parse.Test.Language;
@@ -11,32 +12,32 @@ public class NumberTest
     [InlineData(" ")]
     public void NullOrEmptyStringIsNotAValidNumber(string inputString)
     {
-        var number = new Number(inputString);
-
-        var isValid = number.IsValid();
+        var isValid = Number.CanParse(inputString);
 
         Assert.False(isValid);
-        Assert.Equal(0, number.Value);
+
+        Assert.Throws<InvalidOperationException>(() => new Number(inputString));
     }
+
     [Theory]
     [InlineData("1,2")]
     [InlineData("3.4")]
     public void DecimalDataIsNotAValidNumber(string inputString)
     {
-        var number = new Number(inputString);
-
-        var isValid = number.IsValid();
+        var isValid = Number.CanParse(inputString);
 
         Assert.False(isValid);
-        Assert.Equal(0, number.Value);
+
+        Assert.Throws<InvalidOperationException>(() => new Number(inputString));
     }
 
     [Fact]
     public void NegativeNumberIsValid()
     {
-        var number = new Number("-12");
+        const string value = "-12";
 
-        var isValid = number.IsValid();
+        var isValid = Number.CanParse(value);
+        var number = new Number(value);
 
         Assert.True(isValid);
         Assert.Equal(-12, number.Value);
@@ -45,9 +46,10 @@ public class NumberTest
     [Fact]
     public void PositiveNumberIsValid()
     {
-        var number = new Number("42");
+        const string value = "42";
 
-        var isValid = number.IsValid();
+        var isValid = Number.CanParse(value);
+        var number = new Number(value);
 
         Assert.True(isValid);
         Assert.Equal(42, number.Value);

@@ -1,4 +1,5 @@
-﻿using Biscuit.Parse.Language;
+﻿using System;
+using Biscuit.Parse.Language;
 using Xunit;
 
 namespace Biscuit.Parse.Test.Language;
@@ -11,23 +12,22 @@ public class BytesTest
     [InlineData(" ")]
     public void NullOrEmptyStringIsNotValidBytes(string inputString)
     {
-        var bytes = new Bytes(inputString);
-
-        var isValid = bytes.IsValid();
+        var isValid = Bytes.CanParse(inputString);
 
         Assert.False(isValid);
-        Assert.Empty(bytes.Value);
+
+        Assert.Throws<InvalidOperationException>(() => new Bytes(inputString));
     }
 
     [Fact]
     public void BytesShouldStartWithHex()
     {
-        var bytes = new Bytes("test");
-
-        var isValid = bytes.IsValid();
+        const string inputString = "test";
+        var isValid = Bytes.CanParse(inputString);
 
         Assert.False(isValid);
-        Assert.Empty(bytes.Value);
+
+        Assert.Throws<InvalidOperationException>(() => new Bytes(inputString));
     }
 
     [Theory]
@@ -53,20 +53,22 @@ public class BytesTest
     [InlineData("z")]
     public void HexDataShouldNotContainInvalidLetter(string invalidLetter)
     {
-        var bytes = new Bytes($"hex:1a${invalidLetter}");
-
-        var isValid = bytes.IsValid();
+        var value = $"hex:1a${invalidLetter}";
+        var isValid = Bytes.CanParse(value);
 
         Assert.False(isValid);
-        Assert.Empty(bytes.Value);
+
+        Assert.Throws<InvalidOperationException>(() => new Bytes(value));
     }
 
     [Fact]
     public void ValidHexDataShouldBeReadable()
     {
-        var bytes = new Bytes("hex:1a223e");
+        var value = "hex:1a223e";
 
-        var isValid = bytes.IsValid();
+        var isValid = Bytes.CanParse(value);
+        var bytes = new Bytes(value);
+
 
         Assert.True(isValid);
         Assert.Equal("1a223e", bytes.Value);

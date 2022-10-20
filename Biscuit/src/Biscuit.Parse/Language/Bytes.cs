@@ -1,6 +1,6 @@
 ﻿namespace Biscuit.Parse.Language;
 
-public class Bytes : IPrimordialData
+public class Bytes : IFactTermValue, ISetTermValue
 {
     public string InputString { get; }
     public string Value { get; }
@@ -8,10 +8,14 @@ public class Bytes : IPrimordialData
     public Bytes(string inputString)
     {
         InputString = inputString;
-        Value = IsValid() ? InputString.Trim().Replace("hex:", "") : "";
+        if (!CanParse(InputString))
+        {
+            throw new InvalidOperationException($"{nameof(Bytes)} -> {inputString}");
+        }
+        Value = InputString.Trim().Replace("hex:", "");
     }
-    public bool IsValid()
-    {
-        return !string.IsNullOrWhiteSpace(InputString) && InputString.StartsWith("hex:");
-    }
+    public static bool CanParse(string value)
+        => !string.IsNullOrWhiteSpace(value)
+           && value.StartsWith("hex:")
+           && value[4..].All(c => char.IsNumber(c) || (char.IsLetter(c) && new[]{'a', 'b', 'c', 'd', 'e', 'f'}.Contains(c)));
 }

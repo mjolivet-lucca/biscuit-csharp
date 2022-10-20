@@ -1,6 +1,6 @@
 ﻿namespace Biscuit.Parse.Language;
 
-public class Boolean : IPrimordialData
+public class Boolean : IFactTermValue, ISetTermValue
 {
     public string InputString { get; }
     public bool Value { get; set; }
@@ -8,14 +8,18 @@ public class Boolean : IPrimordialData
     public Boolean(string inputString)
     {
         InputString = inputString;
-        Value = IsValid() && bool.Parse(InputString);
+        if (!CanParse(InputString))
+        {
+            throw new InvalidOperationException($"{nameof(System.Boolean)} -> {inputString}");
+        }
+        Value = bool.Parse(InputString);
     }
-    public bool IsValid()
+    public static bool CanParse(string value)
     {
-        return !string.IsNullOrWhiteSpace(InputString)
+        return !string.IsNullOrWhiteSpace(value)
                && (
-                   InputString.Equals("true")
-                   || InputString.Equals("false")
+                   value.Equals("true")
+                   || value.Equals("false")
                    );
     }
 }
