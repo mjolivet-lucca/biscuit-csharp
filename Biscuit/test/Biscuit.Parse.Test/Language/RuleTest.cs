@@ -1,4 +1,5 @@
-﻿using Biscuit.Parse.Language;
+﻿using System;
+using Biscuit.Parse.Language;
 using Xunit;
 
 namespace Biscuit.Parse.Test.Language;
@@ -8,11 +9,11 @@ public class RuleTest
     [Fact]
     public void ShouldContainArrowInInputString()
     {
-        var inputString = "aze";
-        var rule = new Rule(inputString);
+        const string inputString = "aze";
 
-        var isValid = rule.IsValid();
+        var isValid = Rule.CanParse(inputString);
 
         Assert.False(isValid);
+        Assert.Throws<InvalidOperationException>(() => new Rule(inputString));
     }
 }

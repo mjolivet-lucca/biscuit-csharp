@@ -1,16 +1,20 @@
 ﻿namespace Biscuit.Parse.Language;
 
-public class Name : IValidateable
+public class Name : IParseable
 {
     public string InputString { get; }
 
     public Name(string inputString)
     {
         InputString = inputString;
+        if (!CanParse(InputString))
+        {
+            throw new InvalidOperationException($"{nameof(Name)} -> {inputString}");
+        }
     }
-    public bool IsValid()
+    public static bool CanParse(string value)
     {
-        var name = InputString?.Trim();
+        var name = value?.Trim();
         return !string.IsNullOrWhiteSpace(name)
                && name.Length >= 2
                && char.IsLetter(name[0])

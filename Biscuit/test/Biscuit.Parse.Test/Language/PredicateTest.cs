@@ -1,4 +1,5 @@
-﻿using Biscuit.Parse.Language;
+﻿using System;
+using Biscuit.Parse.Language;
 using Xunit;
 
 namespace Biscuit.Parse.Test.Language;
@@ -10,10 +11,9 @@ public class PredicateTest
     [InlineData(null)]
     public void EmptyPredicateShouldNotBeValid(string input)
     {
-        var predicate = new LogicalPredicate(input);
-
-        var isValid = predicate.IsValid();
+        var isValid = LogicalPredicate.CanParse(input);
 
         Assert.False(isValid);
+        Assert.Throws<InvalidOperationException>(() => new LogicalPredicate(input));
     }
 }

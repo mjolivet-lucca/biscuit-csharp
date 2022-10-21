@@ -7,8 +7,12 @@ public class Check : ILogicalElement
     public Check(string inputString)
     {
         InputString = inputString;
+        if (!CanParse(InputString))
+        {
+            throw new InvalidOperationException($"{nameof(Check)} -> {inputString}");
+        }
     }
-    public bool IsValid()
+    public static bool CanParse(string value)
     {
         throw new NotImplementedException();
     }

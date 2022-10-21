@@ -1,6 +1,6 @@
 ﻿namespace Biscuit.Parse.Language;
 
-public class LogicalPredicate : IValidateable
+public class LogicalPredicate : IParseable
 {
     public string InputString { get; }
     public Name Name { get; }
@@ -8,9 +8,13 @@ public class LogicalPredicate : IValidateable
     public LogicalPredicate(string inputString)
     {
         InputString = inputString;
+        if (!CanParse(InputString))
+        {
+            throw new InvalidOperationException($"{nameof(LogicalPredicate)} -> {inputString}");
+        }
     }
-    public bool IsValid()
+    public static bool CanParse(string value)
     {
-        return false;
+        return !string.IsNullOrWhiteSpace(value);
     }
 }

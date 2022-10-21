@@ -7,8 +7,12 @@ public class Variable : ITerm
     public Variable(string inputString)
     {
         InputString = inputString;
+        if (!CanParse(InputString))
+        {
+            throw new InvalidOperationException($"{nameof(Variable)} -> {inputString}");
+        }
     }
-    public bool IsValid()
+    public static bool CanParse(string value)
     {
         throw new NotImplementedException();
     }

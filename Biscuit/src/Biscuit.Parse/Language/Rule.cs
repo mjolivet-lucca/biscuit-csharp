@@ -9,10 +9,15 @@ public class Rule : ILogicalElement
     public Rule(string inputString)
     {
         InputString = inputString;
+        if (!CanParse(InputString))
+        {
+            throw new InvalidOperationException($"{nameof(Rule)} -> {inputString}");
+        }
+        // TODO : split and parse
 
     }
-    public bool IsValid()
+    public static bool CanParse(string value)
     {
-        return InputString.Contains("<-") && Predicate.IsValid() && RuleBody.IsValid();
+        return value.Contains("<-"); //&& Predicate.IsValid() && RuleBody.IsValid();
     }
 }

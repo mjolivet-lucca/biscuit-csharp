@@ -10,10 +10,12 @@ public class FactTerm : ITerm
     public FactTerm(string inputString)
     {
         InputString = inputString;
+        if (!CanParse(InputString))
+        {
+            throw new InvalidOperationException($"{nameof(FactTerm)} -> {inputString}");
+        }
         Data = FactTermParser.Parse(InputString);
     }
-    public bool IsValid()
-    {
-        return !string.IsNullOrWhiteSpace(InputString);
-    }
+    public static bool CanParse(string value)
+        => !string.IsNullOrWhiteSpace(value);
 }

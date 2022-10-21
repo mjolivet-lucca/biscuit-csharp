@@ -1,5 +1,5 @@
 ﻿namespace Biscuit.Parse.Language;
 
-public interface ITerm : IValidateable
+public interface ITerm : IParseable
 {
 }

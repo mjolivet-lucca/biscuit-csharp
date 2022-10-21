@@ -5,7 +5,11 @@ public class CommentText : ILogicalElement
     public CommentText(string inputString)
     {
         InputString = inputString;
+        if (!CanParse(InputString))
+        {
+            throw new InvalidOperationException($"{nameof(CommentText)} -> {inputString}");
+        }
     }
     public string InputString { get; }
-    public bool IsValid() => !string.IsNullOrWhiteSpace(InputString);
+    public static bool CanParse(string value) => !string.IsNullOrWhiteSpace(value);
 }

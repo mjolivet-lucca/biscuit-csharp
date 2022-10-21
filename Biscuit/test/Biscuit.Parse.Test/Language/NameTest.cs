@@ -1,4 +1,5 @@
-﻿using Biscuit.Parse.Language;
+﻿using System;
+using Biscuit.Parse.Language;
 using Xunit;
 
 namespace Biscuit.Parse.Test.Language;
@@ -11,21 +12,22 @@ public class NameTest
     [InlineData(" ")]
     public void EmptyNameIsNotValid(string input)
     {
-        var name = new Name(input);
-
-        var isValid = name.IsValid();
+        var isValid = Name.CanParse(input);
 
         Assert.False(isValid);
+
+        Assert.Throws<InvalidOperationException>(() => new Name(input));
     }
 
     [Fact]
     public void NameShouldStartWithALetter()
     {
-        var name = new Name("1A");
+        var input = "1A";
 
-        var isValid = name.IsValid();
+        var isValid = Name.CanParse(input);
 
         Assert.False(isValid);
+        Assert.Throws<InvalidOperationException>(() => new Name(input));
     }
 
     [Theory]
@@ -35,11 +37,10 @@ public class NameTest
     [InlineData(" A ")]
     public void NameShouldBeAtLeastTwoCharactersLongExceptSpaces(string inputString)
     {
-        var name = new Name(inputString);
-
-        var isValid = name.IsValid();
+        var isValid = Name.CanParse(inputString);
 
         Assert.False(isValid);
+        Assert.Throws<InvalidOperationException>(() => new Name(inputString));
     }
 
     [Theory]
@@ -65,20 +66,23 @@ public class NameTest
     [InlineData('|')]
     public void NameShouldNotContainForbiddenCharacters(char insertedChar)
     {
-        var name = new Name($"aa{insertedChar}a");
+        var input = $"aa{insertedChar}a";
 
-        var isValid = name.IsValid();
+        var isValid = Name.CanParse(input);
 
         Assert.False(isValid);
+        Assert.Throws<InvalidOperationException>(() => new Name(input));
     }
 
     [Fact]
     public void NameShouldBeValidWhenAtLeast2CharactersAndAllValidCharacters()
     {
-        var name = new Name("aa:_23Z");
+        const string input = "aa:_23Z";
 
-        var isValid = name.IsValid();
+        var isValid = Name.CanParse(input);
+        var name = new Name(input);
 
         Assert.True(isValid);
+        Assert.NotNull(name);
     }
 }

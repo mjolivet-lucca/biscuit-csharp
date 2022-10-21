@@ -1,7 +1,6 @@
 ﻿namespace Biscuit.Parse.Language;
 
-public interface IValidateable
+public interface IParseable
 {
     string InputString { get; }
-    bool IsValid();
 }

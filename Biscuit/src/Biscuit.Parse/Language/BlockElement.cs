@@ -8,12 +8,15 @@ public class BlockElement : IBlockElement
     public BlockElement(string inputString)
     {
         InputString = inputString;
+        if (!CanParse(InputString))
+        {
+            throw new InvalidOperationException($"{nameof(BlockElement)} -> {inputString}");
+        }
         Element = new LogicalElementFactory().PopulateElement(inputString);
     }
 
-    public bool IsValid()
-    {
-        return InputString.Trim().EndsWith(";") && Element.IsValid();
-    }
+    public static bool CanParse(string value)
+        => !string.IsNullOrWhiteSpace(value) && value.Trim().EndsWith(";") ;//&& Element.IsValid(); // TODO: revoir
+
 
 }

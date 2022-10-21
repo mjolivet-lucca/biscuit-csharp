@@ -7,8 +7,12 @@ public class Fact : ILogicalElement
     public Fact(string inputString)
     {
         InputString = inputString;
+        if (!CanParse(InputString))
+        {
+            throw new InvalidOperationException($"{nameof(Fact)} -> {inputString}");
+        }
     }
-    public bool IsValid()
+    public static bool CanParse(string value)
     {
         return true;
     }
