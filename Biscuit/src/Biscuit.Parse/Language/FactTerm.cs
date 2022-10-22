@@ -14,7 +14,7 @@ public class FactTerm : ITerm
         {
             throw new InvalidOperationException($"{nameof(FactTerm)} -> {inputString}");
         }
-        Data = FactTermParser.Parse(InputString);
+        Data = FactTermValueParser.Parse(InputString);
     }
     public static bool CanParse(string value)
         => !string.IsNullOrWhiteSpace(value);

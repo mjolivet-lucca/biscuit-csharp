@@ -4,7 +4,7 @@ using String = Biscuit.Parse.Language.String;
 
 namespace Biscuit.Parse.Parsers;
 
-public static class FactTermParser
+public static class FactTermValueParser
 {
     public static IFactTermValue Parse(string inputString)
         => inputString switch
