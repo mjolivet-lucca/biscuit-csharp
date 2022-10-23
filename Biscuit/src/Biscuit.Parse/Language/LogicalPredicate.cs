@@ -2,7 +2,7 @@
 
 namespace Biscuit.Parse.Language;
 
-public class LogicalPredicate : IParseable
+public class LogicalPredicate : IParseable, IRuleBodyElement
 {
     public string InputString { get; }
     public Name Name { get; }

@@ -18,6 +18,11 @@ public class Rule : ILogicalElement
     }
     public static bool CanParse(string value)
     {
-        return value.Contains("<-"); //&& Predicate.IsValid() && RuleBody.IsValid();
+        var splitValue = value?.Split("<-") ?? Array.Empty<string>();
+        return !string.IsNullOrWhiteSpace(value)
+               && value.Contains("<-")
+               && splitValue.Length == 2
+               && LogicalPredicate.CanParse(splitValue[0].Trim())
+               && RuleBody.CanParse(splitValue[1].Trim());
     }
 }
